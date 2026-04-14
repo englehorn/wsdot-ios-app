@@ -24,6 +24,7 @@ class BridgeAlertItem: Object {
 
     @objc dynamic var alertId: Int = 0
     @objc dynamic var bridge: String = ""
+    @objc dynamic var bridgeGroup: String = ""
     @objc dynamic var title: String = ""
     @objc dynamic var status: String = ""
     @objc dynamic var duration: String = ""

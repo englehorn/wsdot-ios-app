@@ -116,6 +116,11 @@ class BridgeAlertsTableViewController: RefreshViewController, INDLinkLabelDelega
                             {
                                 selfValue.topicItemsMap["1st Avenue South Bridge"] = [BridgeAlertItem()]
                             }
+                            
+                            if (selfValue.topicItemsMap["Aberdeen/Hoquiam Bridges"] == nil)
+                            {
+                                selfValue.topicItemsMap["Aberdeen/Hoquiam Bridges"] = [BridgeAlertItem()]
+                            }
 
                             if (selfValue.topicItemsMap["Hood Canal Bridge"] == nil)
                             {
@@ -129,6 +134,7 @@ class BridgeAlertsTableViewController: RefreshViewController, INDLinkLabelDelega
 
                             selfValue.topicCategoriesMap = selfValue.getCategoriesMap(topicItemsMap: selfValue.topicItemsMap)
                             selfValue.topicItemsMap["1st Avenue South Bridge"]?.sort(by: {$0.lastUpdatedTime.timeIntervalSince1970 > $1.lastUpdatedTime.timeIntervalSince1970})
+                            selfValue.topicItemsMap["Aberdeen/Hoquiam Bridges"]?.sort(by: {$0.lastUpdatedTime.timeIntervalSince1970 > $1.lastUpdatedTime.timeIntervalSince1970})
                             selfValue.topicItemsMap["Hood Canal Bridge"]?.sort(by: {$0.lastUpdatedTime.timeIntervalSince1970 > $1.lastUpdatedTime.timeIntervalSince1970})
                             selfValue.topicItemsMap["Interstate Bridge"]?.sort(by: {$0.lastUpdatedTime.timeIntervalSince1970 > $1.lastUpdatedTime.timeIntervalSince1970})
 
