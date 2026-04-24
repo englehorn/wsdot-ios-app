@@ -84,14 +84,45 @@ class BridgeAlertDetailViewController: RefreshViewController, INDLinkLabelDelega
                             if let alertItemValue = BridgeAlertsStore.findBridgeAlert(withId: selfValue.alertId) {
                                 selfValue.bridgeAlertItem = alertItemValue
                                 selfValue.displayBridgeAlert()
-                                
-                            } else {
+
+                            }
+                            
+                            else if (BridgeAlertsStore.findBridgeAlert(withId: selfValue.alertId) == nil) {
+                                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async { [weak self] in
+                                    BridgeAlertsStore.updateBridgeAlerts(force, completion: { error in
+                                        if (error == nil) {
+                                            // Reload tableview on UI thread
+                                            DispatchQueue.main.async { [weak self] in
+                                                if let selfValue = self {
+                                                    
+                                                    if let alertItemValue = BridgeAlertsStore.findBridgeAlert(withId: selfValue.alertId) {
+                                                        selfValue.bridgeAlertItem = alertItemValue
+                                                        selfValue.displayBridgeAlert()
+
+                                                    }
+                                                    
+                                                    else {
+                                                        selfValue.title = "Unavailable"
+                                                        selfValue.descLinkLabel.text = "Sorry, This alert has expired."
+                                                        selfValue.updateTimeLabel.text = "Unavailable"
+                                                        selfValue.categoryStackTopConstraint.constant = 0
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                            
+                            else {
                                 selfValue.title = "Unavailable"
                                 selfValue.descLinkLabel.text = "Sorry, This alert has expired."
                                 selfValue.updateTimeLabel.text = "Unavailable"
                                 selfValue.categoryStackTopConstraint.constant = 0
 
                             }
+                            
                             selfValue.hideOverlayView()
                         }
                     }

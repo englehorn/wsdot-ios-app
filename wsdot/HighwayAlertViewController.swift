@@ -88,15 +88,45 @@ class HighwayAlertViewController: RefreshViewController, INDLinkLabelDelegate, M
                             
                                 selfValue.alertItem = alertItemValue
                                 selfValue.displayAlert()
-                                
-                            } else {
+                            }
                             
+                            else if (HighwayAlertsStore.findAlert(withId: selfValue.alertId) == nil) {
+                                
+                                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async { [weak self] in
+                                    HighwayAlertsStore.updateAlerts(force, completion: { error in
+                                        if (error == nil) {
+                                            // Reload tableview on UI thread
+                                            DispatchQueue.main.async { [weak self] in
+                                                if let selfValue = self {
+                                                    
+                                                    if let alertItemValue = HighwayAlertsStore.findAlert(withId: selfValue.alertId) {
+                                                        selfValue.alertItem = alertItemValue
+                                                        selfValue.displayAlert()
+                                                        
+                                                    }
+                                                    else {
+                                                    
+                                                        selfValue.title = "Unavailable"
+                                                        selfValue.descLinkLabel.text = "Sorry, This incident has expired."
+                                                        selfValue.updateTimeLabel.text = "Unavailable"
+                                                        selfValue.categoryStackTopConstraint.constant = 0
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                            
+                            else {
+                                
                                 selfValue.title = "Unavailable"
                                 selfValue.descLinkLabel.text = "Sorry, This incident has expired."
                                 selfValue.updateTimeLabel.text = "Unavailable"
                                 selfValue.categoryStackTopConstraint.constant = 0
-                            
                             }
+                            
                             selfValue.hideOverlayView()
                         }
                     }
