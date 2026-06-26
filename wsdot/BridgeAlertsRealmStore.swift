@@ -44,13 +44,13 @@ class BridgeAlertsStore: Decodable {
     
         var topicCategoriesMap = [String: [BridgeAlertItem]]()
         
-        let sortedTopics = topics.sorted(by: {$0.bridge < $1.bridge })
+        let sortedTopics = topics.sorted(by: {$0.bridgeGroup < $1.bridgeGroup })
         
         for topic in sortedTopics {
-            if topicCategoriesMap[topic.bridge] != nil {
-                topicCategoriesMap[topic.bridge]!.append(topic)
+            if topicCategoriesMap[topic.bridgeGroup] != nil {
+                topicCategoriesMap[topic.bridgeGroup]!.append(topic)
             } else {
-                topicCategoriesMap[topic.bridge] = [topic]
+                topicCategoriesMap[topic.bridgeGroup] = [topic]
             }
         }
         
@@ -121,7 +121,8 @@ class BridgeAlertsStore: Decodable {
             alert.milepost = alertJson["BridgeLocation"]["MilePost"].doubleValue
             alert.direction = alertJson["BridgeLocation"]["Direction"].stringValue
             alert.roadName = alertJson["BridgeLocation"]["RoadName"].stringValue
-            
+            alert.bridgeGroup = alertJson["BridgeGroup"].stringValue
+
             if let timeJsonStringValue = alertJson["OpeningTime"].string {
                 do {
                     alert.openingTime =
@@ -130,12 +131,6 @@ class BridgeAlertsStore: Decodable {
                     print("error formatting date")
                 }
             }
-
-            
-//            // Format "Hood Canal" bridge alerts
-//            if (alert.bridge == "Hood Canal") {
-//                alert.bridge = "Hood Canal Bridge"
-//            }
             
             newAlerts.append(alert)
         }

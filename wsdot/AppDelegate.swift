@@ -319,7 +319,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
-            schemaVersion: 17,
+            schemaVersion: 18,
 
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < 1) {
@@ -506,6 +506,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     }
                     migration.deleteData(forType: CacheItem.className())
                     migration.deleteData(forType: TollRateTableItem.className())
+                    
+                }
+                
+                /* Adds bridgeGroup field to bridge alert item.
+                 Clears cache to force refresh
+                 */
+                if (oldSchemaVersion < 18) {
+                    migration.enumerateObjects(ofType: BridgeAlertItem.className()) { oldObject, newObject in
+                        newObject!["bridgeGroup"] = ""
+                    }
+                    migration.deleteData(forType: CacheItem.className())
+                    migration.deleteData(forType: BridgeAlertItem.className())
                     
                 }
                 
