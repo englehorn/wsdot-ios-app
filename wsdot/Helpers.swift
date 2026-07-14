@@ -165,6 +165,28 @@ struct UIHelpers {
 
         }
     
+    static func getPassAlertIcon(forAlert: PassAlertItem) -> UIImage? {
+    
+        let alertLowIconImage = UIImage(named: "icMapAlertLow")
+        let alertModerateIconImage = UIImage(named: "icMapAlertModerate")
+        let alertHighIconImage = UIImage(named: "icMapAlertHigh")
+        let closedIconImage = UIImage(named: "icMapClosed")
+        
+        switch forAlert.travelCenterPriorityId {
+            case 4:
+                return alertLowIconImage
+            case 3:
+                return alertModerateIconImage
+            case 2:
+                return alertHighIconImage
+            case 1:
+                return closedIconImage
+            default:
+                return alertLowIconImage
+            }
+
+        }
+    
 
     static func getAlertLabel() -> UILabel {
         let label = UILabel(frame: CGRect(x: 10, y: -10, width: 20, height: 20))

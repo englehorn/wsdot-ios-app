@@ -32,6 +32,7 @@ enum CachedData {
     case tollRates
     case staticTollRates
     case bridgeAlerts
+    case passAlerts
 }
 
 class CachesStore {
@@ -103,6 +104,8 @@ class CachesStore {
             return cacheItem!.staticTollRatesLastUpdate as Date
         case .bridgeAlerts:
             return cacheItem!.bridgeAlertsLastUpdate as Date
+        case .passAlerts:
+            return cacheItem!.bridgeAlertsLastUpdate as Date
         }
     }
 
@@ -139,6 +142,8 @@ class CachesStore {
                     cacheItem?.staticTollRatesLastUpdate = updated
                 case .bridgeAlerts:
                     cacheItem?.bridgeAlertsLastUpdate = updated
+                case .passAlerts:
+                    cacheItem?.passAlertsLastUpdate = updated
                 }
             }
         } catch {

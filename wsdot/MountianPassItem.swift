@@ -39,6 +39,7 @@ class MountainPassItem: Object {
     @objc dynamic var selected: Bool = false
     let cameraIds = List<PassCameraIDItem>()
     let forecast = List<ForecastItem>()
+    let passAlerts = List<PassAlertItem>()
     
     @objc dynamic var delete: Bool = false
     

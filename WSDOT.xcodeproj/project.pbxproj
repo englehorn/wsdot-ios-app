@@ -23,6 +23,8 @@
 		5519276D2DFA28770082D807 /* TerminalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5519276C2DFA28770082D807 /* TerminalItem.swift */; };
 		5519276F2DFA38BB0082D807 /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5519276E2DFA38BB0082D807 /* TerminalViewController.swift */; };
 		552490DE2E1A048A000DE7A3 /* VesselWatchMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552490DD2E1A048A000DE7A3 /* VesselWatchMapViewController.swift */; };
+		555061E72DC29055002F72AF /* PassAlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555061E62DC29055002F72AF /* PassAlertItem.swift */; };
+		555061E92DC29508002F72AF /* MountainPassAlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555061E82DC29508002F72AF /* MountainPassAlertsViewController.swift */; };
 		5551B75E2EA94518005773CF /* TollRatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5551B75D2EA94518005773CF /* TollRatesTableViewController.swift */; };
 		5568FB032CB99B7A000850AE /* TravelTimes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5568FB022CB99B7A000850AE /* TravelTimes.storyboard */; };
 		558F4FE82BC9F06000EC6CAD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 558F4FE72BC9F06000EC6CAD /* PrivacyInfo.xcprivacy */; };
@@ -30,6 +32,7 @@
 		55F5319E2CB6FA5900DC6792 /* TravelTimeAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F5319D2CB6FA5900DC6792 /* TravelTimeAlertViewController.swift */; };
 		76763D7C27CFD4E700BBB1DB /* DateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76763D7B27CFD4E700BBB1DB /* DateButton.swift */; };
 		76D632A1289C5F2D00534F11 /* googlemapstyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 76D632A0289C5F2D00534F11 /* googlemapstyle.json */; };
+		76DF186D2FCA2F35005E7C32 /* MountainPassAlertDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DF186C2FCA2F35005E7C32 /* MountainPassAlertDetailViewController.swift */; };
 		9A0360481DECBC6100B88466 /* PassCameraIDItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0360471DECBC6100B88466 /* PassCameraIDItem.swift */; };
 		9A06167A1D62285A00126520 /* VesselWatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0616791D62285A00126520 /* VesselWatchViewController.swift */; };
 		9A06167C1D622AE800126520 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06167B1D622AE800126520 /* MapViewController.swift */; };
@@ -284,6 +287,8 @@
 		5519276C2DFA28770082D807 /* TerminalItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalItem.swift; sourceTree = "<group>"; };
 		5519276E2DFA38BB0082D807 /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
 		552490DD2E1A048A000DE7A3 /* VesselWatchMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VesselWatchMapViewController.swift; sourceTree = "<group>"; };
+		555061E62DC29055002F72AF /* PassAlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassAlertItem.swift; sourceTree = "<group>"; };
+		555061E82DC29508002F72AF /* MountainPassAlertsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountainPassAlertsViewController.swift; sourceTree = "<group>"; };
 		5551B75D2EA94518005773CF /* TollRatesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TollRatesTableViewController.swift; sourceTree = "<group>"; };
 		5568FB022CB99B7A000850AE /* TravelTimes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TravelTimes.storyboard; sourceTree = "<group>"; };
 		558F4FE72BC9F06000EC6CAD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -293,6 +298,7 @@
 		690E6882E64B87BDA185B4DC /* Pods_WSDOTTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WSDOTTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76763D7B27CFD4E700BBB1DB /* DateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateButton.swift; sourceTree = "<group>"; };
 		76D632A0289C5F2D00534F11 /* googlemapstyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = googlemapstyle.json; sourceTree = "<group>"; };
+		76DF186C2FCA2F35005E7C32 /* MountainPassAlertDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountainPassAlertDetailViewController.swift; sourceTree = "<group>"; };
 		9A0360471DECBC6100B88466 /* PassCameraIDItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassCameraIDItem.swift; sourceTree = "<group>"; };
 		9A0616791D62285A00126520 /* VesselWatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VesselWatchViewController.swift; sourceTree = "<group>"; };
 		9A06167B1D622AE800126520 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -1143,6 +1149,8 @@
 		9A6FBD2C1D6E3E6700CDCE16 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				555061E82DC29508002F72AF /* MountainPassAlertsViewController.swift */,
+				76DF186C2FCA2F35005E7C32 /* MountainPassAlertDetailViewController.swift */,
 				9A6FBD301D6E3E9100CDCE16 /* MountainPassesViewController.swift */,
 				9A6FBD361D6E413A00CDCE16 /* MountainPassTabBarViewController.swift */,
 				9AEEDDA71D6F7FDF0032F5EC /* MountainPassReportViewController.swift */,
@@ -1156,6 +1164,7 @@
 			children = (
 				9A6FBD321D6E3EA200CDCE16 /* MountianPassItem.swift */,
 				9A6FBD381D6E4A4700CDCE16 /* ForcastItem.swift */,
+				555061E62DC29055002F72AF /* PassAlertItem.swift */,
 				9A6FBD341D6E3EAE00CDCE16 /* MountainPassRealmStore.swift */,
 				9AEEDDA51D6F3EC50032F5EC /* WeatherUtils.swift */,
 				9A0360471DECBC6100B88466 /* PassCameraIDItem.swift */,
@@ -2306,10 +2315,12 @@
 				9A1F5FA31D47DBB700DA5F99 /* SailingSpacesStore.swift in Sources */,
 				9AEEDDB51D70C5190032F5EC /* AlertPagerViewController.swift in Sources */,
 				9AD32E221D241AF4000AEC28 /* HomeViewController.swift in Sources */,
+				555061E72DC29055002F72AF /* PassAlertItem.swift in Sources */,
 				9A6FBD211D6DF96100CDCE16 /* BorderWaitsRealmStore.swift in Sources */,
 				9A0616E41D676FB600126520 /* TrafficMapViewController.swift in Sources */,
 				9A3E9F0B226634E2003066F4 /* TollRateRowItem.swift in Sources */,
 				9A7BC0DF1DA3F32400EF760C /* GQTPointQuadTree.m in Sources */,
+				76DF186D2FCA2F35005E7C32 /* MountainPassAlertDetailViewController.swift in Sources */,
 				9A8486F21D81AC450026F1CF /* SelectionCell.swift in Sources */,
 				9A0616CC1D660BD500126520 /* TollTableViewController.swift in Sources */,
 				5551B75E2EA94518005773CF /* TollRatesTableViewController.swift in Sources */,
@@ -2345,6 +2356,7 @@
 				9A0CA8311D428EE9009C67B7 /* RouteDeparturesViewController.swift in Sources */,
 				02782A4C25437A5D008CF650 /* PassReportView.swift in Sources */,
 				9A6FBCDC1D6B6E1200CDCE16 /* HighwayAlertsRealmStore.swift in Sources */,
+				555061E92DC29508002F72AF /* MountainPassAlertsViewController.swift in Sources */,
 				9A3E9F1122692766003066F4 /* RefreshViewController.swift in Sources */,
 				9AEF4DAC1D773F94003ECA34 /* TwitterViewController.swift in Sources */,
 				9A1F5FA11D47D3D100DA5F99 /* CameraImageCustomCell.swift in Sources */,

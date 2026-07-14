@@ -33,7 +33,8 @@ class CacheItem: Object{
     @objc dynamic var tollRatesLastUpdate: Date = Date(timeIntervalSince1970: 0)
     @objc dynamic var staticTollRatesLastUpdate: Date = Date(timeIntervalSince1970: 0)
     @objc dynamic var bridgeAlertsLastUpdate: Date = Date(timeIntervalSince1970: 0)
-    
+    @objc dynamic var passAlertsLastUpdate: Date = Date(timeIntervalSince1970: 0)
+
     override class func primaryKey() -> String {
         return "id"
     }

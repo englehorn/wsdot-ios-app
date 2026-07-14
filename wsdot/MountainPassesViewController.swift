@@ -76,7 +76,10 @@ class MountainPassesViewController: RefreshViewController, UITableViewDelegate, 
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        refresh(true)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            refresh(true)
+        }
     }
     
     func refresh(_ force: Bool){

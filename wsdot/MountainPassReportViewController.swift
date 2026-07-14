@@ -33,6 +33,8 @@ class MountainPassReportViewController: RefreshViewController, UITableViewDataSo
     var cameras : [CameraItem] = []
     
     let passReportView = PassReportView()
+
+    @IBOutlet weak var reportView: UIView!
     
     @IBOutlet weak var bannerView: AdManagerBannerView!
     
@@ -40,8 +42,16 @@ class MountainPassReportViewController: RefreshViewController, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MyAnalytics.screenView(screenName: "PassReport")
+        loadPassReportView()
+
+    }
+    
+    
+    func loadPassReportView() {
         
-        
+        tableView.isHidden = true
+
         passReportView.mountainPassIconLabel.text = "Mountain Pass Report"
         passReportView.mountainPassIconImage.image = UIImage(named: "mountainpass_icon")
         
@@ -75,9 +85,8 @@ class MountainPassReportViewController: RefreshViewController, UITableViewDataSo
         refreshControl.addTarget(self, action: #selector(refreshAction(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
         
-        self.tableView.contentOffset = CGPoint(x: 0, y: -self.refreshControl.frame.size.height)
         refresh(false)
-        
+
         showOverlay(self.view)
         
         // Ad Banner
@@ -92,10 +101,7 @@ class MountainPassReportViewController: RefreshViewController, UITableViewDataSo
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        MyAnalytics.screenView(screenName: "PassReport")
-    }
+ 
     
     func updatePassReportView(withPassItem: MountainPassItem) {
         passItem = withPassItem
@@ -206,10 +212,6 @@ class MountainPassReportViewController: RefreshViewController, UITableViewDataSo
         return label
     }
     
-    
-
-    
-    
     func refresh(_ force: Bool) {
         
         // refresh cameras
@@ -227,7 +229,8 @@ class MountainPassReportViewController: RefreshViewController, UITableViewDataSo
                             selfValue.tableView.reloadData()
                             selfValue.hideOverlayView()
                             selfValue.refreshControl.endRefreshing()
-                                                        
+                            selfValue.tableView.isHidden = false
+
                         }
                     }
                 }else{
