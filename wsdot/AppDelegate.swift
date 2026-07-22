@@ -113,41 +113,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // catches notifications while app is in foreground and displays
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter,
-                            willPresent notification: UNNotification,
-                            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         UIApplication.shared.applicationIconBadgeNumber = 0
-       
+        
         // Display the notificaion.
         completionHandler(UNNotificationPresentationOptions.alert)
     }
-
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-                 fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         print("didReceiveRemoteNotification w/ completionHandler.")
-
+        
         Messaging.messaging().appDidReceiveMessage(userInfo)
-            if let alertType = userInfo["type"] as? String {
-                if alertType == "ferry_alert" {
-                    MyAnalytics.event(category: "Notification", action: "Message Opened" , label: "Ferry Alert")
-                    if let routeIdString = userInfo["route_id"] as? String {
-                        if let routeId = Int(routeIdString){
-                            launchFerriesAlertScreen(routeId: routeId)
-                        }
+        if let alertType = userInfo["type"] as? String {
+            if alertType == "ferry_alert" {
+                MyAnalytics.event(category: "Notification", action: "Message Opened" , label: "Ferry Alert")
+                if let routeIdString = userInfo["route_id"] as? String {
+                    if let routeId = Int(routeIdString){
+                        launchFerriesAlertScreen(routeId: routeId)
                     }
-                } else if alertType == "highway_alert" {
-                    MyAnalytics.event(category: "Notification", action: "Message Opened" , label: "Traffic Alert")
-                    if let alertIdString = userInfo["alert_id"] as? String, let latString = userInfo["lat"] as? String, let longString = userInfo["long"] as? String    {
-                        if let alertId = Int(alertIdString), let lat = Double(latString), let long = Double(longString) {
-                            launchTrafficAlertDetailsScreen(alertId: alertId, latitude: lat, longitude: long)
-                        }
+                }
+            } else if alertType == "highway_alert" {
+                MyAnalytics.event(category: "Notification", action: "Message Opened" , label: "Traffic Alert")
+                if let alertIdString = userInfo["alert_id"] as? String, let latString = userInfo["lat"] as? String, let longString = userInfo["long"] as? String    {
+                    if let alertId = Int(alertIdString), let lat = Double(latString), let long = Double(longString) {
+                        launchTrafficAlertDetailsScreen(alertId: alertId, latitude: lat, longitude: long)
                     }
-                } else if alertType == "bridge_alert" {
-                    MyAnalytics.event(category: "Notification", action: "Message Opened" , label: "Bridge Alert")
+                }
+            } else if alertType == "bridge_alert" {
+                MyAnalytics.event(category: "Notification", action: "Message Opened" , label: "Bridge Alert")
                 if let alertIdString = userInfo["alert_id"] as? String {
                     if let alertId = Int(alertIdString) {
                         launchBridgeAlertsViewControllerScreen(alertId: alertId)
+                    }
+                }
+            } else if alertType == "pass_alert" {
+                MyAnalytics.event(category: "Notification", action: "Message Opened" , label: "Pass Alert")
+                if let alertIdString = userInfo["alert_id"] as? String, let passIdString = userInfo["pass_id"] as? String {
+                    if let alertId = Int(alertIdString), let passId = Int(passIdString) {
+                        launchPassAlertsViewControllerScreen(alertId: alertId, passId: passId)
                     }
                 }
             }
@@ -158,29 +165,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // unused - old method from before bridge alerts had their own section
     func launchTrafficAlertDetailsScreenWithNoAlert(
         title: String, description: String, latitude: Double, longitude: Double) {
-        
-        let trafficMapStoryboard: UIStoryboard = UIStoryboard(name: "TrafficMap", bundle: nil)
-        
-        // Set up nav and vc stack
-        let trafficMapNav = trafficMapStoryboard.instantiateViewController(withIdentifier: "TrafficMapNav") as! UINavigationController
-        let trafficMap = trafficMapStoryboard.instantiateViewController(withIdentifier: "TrafficMapViewController") as! TrafficMapViewController
-        
-        let HighwayAlertStoryboard: UIStoryboard = UIStoryboard(name: "HighwayAlert", bundle: nil)
-        
-        let highwayAlertDetails = HighwayAlertStoryboard.instantiateViewController(withIdentifier: "HighwayAlertViewController") as! HighwayAlertViewController
-  
-        highwayAlertDetails.fromPush = true
-        highwayAlertDetails.hasAlert = false
-        highwayAlertDetails.pushLat = latitude
-        highwayAlertDetails.pushLong = longitude
-        highwayAlertDetails.title = title
-        highwayAlertDetails.pushMessage = description
-        
-        // assign vc stack to new nav controller
-        trafficMapNav.setViewControllers([trafficMap, highwayAlertDetails], animated: false)
-
-        setNavController(newNavigationController: trafficMapNav)
-    }
+            
+            let trafficMapStoryboard: UIStoryboard = UIStoryboard(name: "TrafficMap", bundle: nil)
+            
+            // Set up nav and vc stack
+            let trafficMapNav = trafficMapStoryboard.instantiateViewController(withIdentifier: "TrafficMapNav") as! UINavigationController
+            let trafficMap = trafficMapStoryboard.instantiateViewController(withIdentifier: "TrafficMapViewController") as! TrafficMapViewController
+            
+            let HighwayAlertStoryboard: UIStoryboard = UIStoryboard(name: "HighwayAlert", bundle: nil)
+            
+            let highwayAlertDetails = HighwayAlertStoryboard.instantiateViewController(withIdentifier: "HighwayAlertViewController") as! HighwayAlertViewController
+            
+            highwayAlertDetails.fromPush = true
+            highwayAlertDetails.hasAlert = false
+            highwayAlertDetails.pushLat = latitude
+            highwayAlertDetails.pushLong = longitude
+            highwayAlertDetails.title = title
+            highwayAlertDetails.pushMessage = description
+            
+            // assign vc stack to new nav controller
+            trafficMapNav.setViewControllers([trafficMap, highwayAlertDetails], animated: false)
+            
+            setNavController(newNavigationController: trafficMapNav)
+        }
     
     func launchTrafficAlertDetailsScreen(alertId: Int, latitude: Double, longitude: Double){
 
@@ -205,7 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         setNavController(newNavigationController: trafficMapNav)
     
     }
-
+    
     func launchFerriesAlertScreen(routeId: Int) {
         
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Ferries", bundle: nil)
@@ -220,14 +227,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ferrySailings.routeId = routeId
         
         let ferryAlerts = mainStoryboard.instantiateViewController(withIdentifier: "RouteAlertsViewController") as! RouteAlertsViewController
-  
+        
         ferryAlerts.routeId = routeId
         
         // assign vc stack to new nav controller
         ferriesNav.setViewControllers([ferrySchedules, ferrySailings, ferryAlerts], animated: false)
-
+        
         setNavController(newNavigationController: ferriesNav)
-
+        
+    }
+    
+    func launchPassAlertsViewControllerScreen(alertId: Int, passId: Int) {
+        
+        let passAlertsStoryboard: UIStoryboard = UIStoryboard(name: "MountainPasses", bundle: nil)
+        
+        // Set up nav and vc stack
+        let passNav = passAlertsStoryboard.instantiateViewController(withIdentifier: "PassNav") as! UINavigationController
+        
+        let mountainPassesView = passAlertsStoryboard.instantiateViewController(withIdentifier: "MountainPassesViewController") as! MountainPassesViewController
+        
+        let mountainPassTabBarView = passAlertsStoryboard.instantiateViewController(withIdentifier: "MountainPassTabBarViewController") as! MountainPassTabBarViewController
+        
+        let mountainPassAlertView = passAlertsStoryboard.instantiateViewController(withIdentifier: "MountainPassAlertDetailViewController") as! MountainPassAlertDetailViewController
+        
+        mountainPassTabBarView.passId = passId
+        mountainPassAlertView.alertId = alertId
+        mountainPassAlertView.fromPush = true
+        
+        // assign vc stack to new nav controller
+        passNav.setViewControllers([mountainPassesView, mountainPassTabBarView, mountainPassAlertView], animated: false)
+        
+        setNavController(newNavigationController: passNav)
+        
     }
     
     func launchBridgeAlertsViewControllerScreen(alertId: Int){
@@ -311,7 +342,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
             newDB = true
             print(error)
-
+            
         } catch {
             
             print(error)
@@ -319,8 +350,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
-            schemaVersion: 18,
-
+            schemaVersion: 19,
+            
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < 1) {
                     // The enumerateObjects(ofType:_:) method iterates
@@ -350,9 +381,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 if (oldSchemaVersion < 3) {
-                   migration.deleteData(forType: TravelTimeItemGroup.className())
-                   migration.deleteData(forType: TravelTimeItem.className())
-                   migration.deleteData(forType: CacheItem.className())
+                    migration.deleteData(forType: TravelTimeItemGroup.className())
+                    migration.deleteData(forType: TravelTimeItem.className())
+                    migration.deleteData(forType: CacheItem.className())
                 }
                 
                 if (oldSchemaVersion < 4) {
@@ -368,9 +399,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 /*
-                    Adds milepost and direction fields.
-                    Clears cache times to force refresh
-                */
+                 Adds milepost and direction fields.
+                 Clears cache times to force refresh
+                 */
                 if (oldSchemaVersion < 6) {
                     migration.enumerateObjects(ofType: CameraItem.className()) { oldObject, newObject in
                         newObject!["milepost"] = -1
@@ -380,9 +411,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 /*
-                    Adds favorite field to borderwaits.
-                    Clears cache times to force refresh
-                */
+                 Adds favorite field to borderwaits.
+                 Clears cache times to force refresh
+                 */
                 if (oldSchemaVersion < 7) {
                     migration.enumerateObjects(ofType: BorderWaitItem.className()) { oldObject, newObject in
                         newObject!["selected"] = false
@@ -392,9 +423,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 /*
-                    Adds cameraId and tavelTimeId field to my route item.
-                    Clears cache times to force refresh
-                */
+                 Adds cameraId and tavelTimeId field to my route item.
+                 Clears cache times to force refresh
+                 */
                 if (oldSchemaVersion < 8) {
                     migration.enumerateObjects(ofType: MyRouteItem.className()) { oldObject, newObject in
                         newObject!["cameraIds"] = List<Int>()
@@ -406,8 +437,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 /*
-                   tollTableItem added and cache item for toll table data
-                */
+                 tollTableItem added and cache item for toll table data
+                 */
                 if (oldSchemaVersion < 9) {
                     migration.enumerateObjects(ofType: CacheItem.className()) { oldObject, newObject in
                         newObject!["staticTollRatesLastUpdate"] = Date(timeIntervalSince1970: 0)
@@ -415,7 +446,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 /*
-                    BridgeAlertItem added and cache item for bridge alert date
+                 BridgeAlertItem added and cache item for bridge alert date
                  */
                 if (oldSchemaVersion < 10) {
                     migration.enumerateObjects(ofType: CacheItem.className()) { oldObject, newObject in
@@ -424,14 +455,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 /*
-                    Adds WSDOT traffic map data from https://wsdot.com/travel/real-time/service/api/Alerts
-                    Clears cache times to force refresh
-                */
+                 Adds WSDOT traffic map data from https://wsdot.com/travel/real-time/service/api/Alerts
+                 Clears cache times to force refresh
+                 */
                 if (oldSchemaVersion < 11) {
                     migration.enumerateObjects(ofType: HighwayAlertItem.className()) { oldObject, newObject in
                         newObject!["roadName"] = ""
                         newObject!["eventCategoryTypeDescription"] = ""
-                        newObject!["travelCenterPriorityId"] = 0                        
+                        newObject!["travelCenterPriorityId"] = 0
                     }
                     migration.deleteData(forType: CacheItem.className())
                 }
@@ -447,7 +478,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         newObject!["displayLongitude"] = 0.0
                     }
                     migration.deleteData(forType: CacheItem.className())
-            }
+                }
                 /* Adds status field to bridge alert item.
                  Clears cache times to force refresh
                  */
@@ -490,11 +521,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         newObject!["zoom"] = 0.0
                         newObject!["latitude"] = 0.0
                         newObject!["longitude"] = 0.0
-
+                        
                     }
                     migration.deleteData(forType: CacheItem.className())
                     migration.deleteData(forType: VesselWatchFavoriteLocationItem.className())
-
+                    
                 }
                 
                 /* Adds id field to toll rate table item.
@@ -521,6 +552,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     
                 }
                 
-        })
+                /* Adds mountain pass alert item.
+                 Clears cache to force refresh
+                 */
+                if (oldSchemaVersion < 19) {
+                    migration.enumerateObjects(ofType: PassAlertItem.className()) { oldObject, newObject in
+                        newObject!["passId"] = 0
+                        newObject!["eventId"] = 0
+                        newObject!["travelCenterPriorityId"] = 0
+                        newObject!["eventCategoryTypeDescription"] = ""
+                        newObject!["headlineMessage"] = ""
+                        newObject!["roadName"] = ""
+                        newObject!["roadDirection"] = ""
+                        newObject!["displayLatitude"] = 0.0
+                        newObject!["displayLongitude"] = 0.0
+                        newObject!["createdDate"] = 0.0
+                    }
+                    migration.deleteData(forType: CacheItem.className())
+                }
+            })
     }
 }

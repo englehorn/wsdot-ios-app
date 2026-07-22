@@ -165,6 +165,28 @@ struct UIHelpers {
 
         }
     
+    static func getPassAlertIcon(forAlert: PassAlertItem) -> UIImage? {
+    
+        let alertLowIconImage = UIImage(named: "icMapAlertLow")
+        let alertModerateIconImage = UIImage(named: "icMapAlertModerate")
+        let alertHighIconImage = UIImage(named: "icMapAlertHigh")
+        let closedIconImage = UIImage(named: "icMapClosed")
+        
+        switch forAlert.travelCenterPriorityId {
+            case 4:
+                return alertLowIconImage
+            case 3:
+                return alertModerateIconImage
+            case 2:
+                return alertHighIconImage
+            case 1:
+                return closedIconImage
+            default:
+                return alertLowIconImage
+            }
+
+        }
+    
 
     static func getAlertLabel() -> UILabel {
         let label = UILabel(frame: CGRect(x: 10, y: -10, width: 20, height: 20))
@@ -233,6 +255,7 @@ struct WSDOTErrorStrings {
     static let expressLanes  = "can't download express lane status"
     static let posts = "can't download posts"
     static let videos = "can't download videos"
+    static let passAlerts = "can't download pass alerts"
     static let passCameras = "can't download pass cameras"
     static let passReport = "can't download pass report"
     static let passReports = "can't download pass reports"

@@ -46,6 +46,19 @@ class MountainPassStore: Decodable {
 
     }
     
+    static func findPass(withId: Int) -> MountainPassItem? {
+        let realm = try! Realm()
+        let passItem = realm.object(ofType: MountainPassItem.self, forPrimaryKey: withId)
+        return passItem
+    }
+    
+    static func findPassAlert(withId: Int) -> PassAlertItem? {
+        let realm = try! Realm()
+        let alertItem = realm.object(ofType: PassAlertItem.self, forPrimaryKey: withId)
+        return alertItem
+    }
+    
+    
     static func findFavoritePasses() -> [MountainPassItem]{
         let realm = try! Realm()
         let favoritePassItems = realm.objects(MountainPassItem.self).filter("selected == true")
@@ -161,6 +174,10 @@ class MountainPassStore: Decodable {
             for forcast in parseForecastJSON(subJson["Forecast"]){
                 pass.forecast.append(forcast)
             }
+            for alert in parseAlertsJSON(subJson["Alerts"]){
+                pass.passAlerts.append(alert)
+            }
+            
             passItems.append(pass)
         }
         return passItems
@@ -186,4 +203,25 @@ class MountainPassStore: Decodable {
         }
         return forecastItems
     }
+    
+    fileprivate static func parseAlertsJSON(_ json: JSON) -> List<PassAlertItem> {
+        let alertItems = List<PassAlertItem>()
+        for(_,alertJSON):(String, JSON) in json {
+            let alert = PassAlertItem()
+            alert.passId = alertJSON["PassId"].intValue
+            alert.eventId = alertJSON["EventId"].intValue
+            alert.travelCenterPriorityId = alertJSON["TravelCenterPriorityId"].intValue
+            alert.eventCategoryTypeDescription = alertJSON["EventCategoryTypeDescription"].stringValue
+            alert.headlineMessage = alertJSON["HeadlineMessage"].stringValue
+            alert.roadName = alertJSON["RoadName"].stringValue
+            alert.roadDirection = alertJSON["RoadDirection"].stringValue
+            alert.displayLatitude = alertJSON["DisplayLatitude"].doubleValue
+            alert.displayLongitude = alertJSON["DisplayLongitude"].doubleValue
+            alert.createdDate = alertJSON["CreatedDate"].stringValue
+            
+            alertItems.append(alert)
+        }
+        return alertItems
+    }
+        
  }
