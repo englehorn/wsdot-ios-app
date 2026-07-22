@@ -105,7 +105,7 @@ class CachesStore {
         case .bridgeAlerts:
             return cacheItem!.bridgeAlertsLastUpdate as Date
         case .passAlerts:
-            return cacheItem!.bridgeAlertsLastUpdate as Date
+            return cacheItem!.passAlertsLastUpdate as Date
         }
     }
 
