@@ -145,7 +145,7 @@ class MountainPassAlertDetailViewController: RefreshViewController, INDLinkLabel
 
                         if let selfValue = self{
                             selfValue.hideOverlayView()
-                            AlertMessages.getConnectionAlert(backupURL: nil, message: WSDOTErrorStrings.bridgeAlerts)
+                            AlertMessages.getConnectionAlert(backupURL: nil, message: WSDOTErrorStrings.passAlerts)
                         }
                     }
                 }

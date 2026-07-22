@@ -255,6 +255,7 @@ struct WSDOTErrorStrings {
     static let expressLanes  = "can't download express lane status"
     static let posts = "can't download posts"
     static let videos = "can't download videos"
+    static let passAlerts = "can't download pass alerts"
     static let passCameras = "can't download pass cameras"
     static let passReport = "can't download pass report"
     static let passReports = "can't download pass reports"
